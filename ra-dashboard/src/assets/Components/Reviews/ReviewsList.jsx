@@ -1,4 +1,5 @@
-import { DataTable, List, ReferenceField } from "react-admin";
+// import { colors } from "@mui/material";
+import { DataTable, List, ReferenceField, EditButton } from "react-admin";
 
 export const ReviewList = () => (
   <List>
@@ -9,6 +10,7 @@ export const ReviewList = () => (
         <ReferenceField source="movieId" reference="movies" />
       </DataTable.Col>
       <DataTable.NumberCol source="rating" />
+      <EditButton />
     </DataTable>
   </List>
 );

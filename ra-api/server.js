@@ -14,6 +14,22 @@ server.use((req, res, next) => {
   next();
 });
 
+// Transform responses: add `id` field for actors from `actorId` so react-admin can use it
+router.render = (req, res) => {
+  const path = req.path || req.originalUrl || "";
+  const data = res.locals.data;
+  if (path.startsWith("/actors")) {
+    if (Array.isArray(data)) {
+      data.forEach((item) => {
+        if (item && item.actorId && !item.id) item.id = item.actorId;
+      });
+    } else if (data && data.actorId && !data.id) {
+      data.id = data.actorId;
+    }
+  }
+  res.jsonp(data);
+};
+
 // Mount router
 server.use(router);
 
